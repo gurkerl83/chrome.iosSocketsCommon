@@ -16,6 +16,9 @@
   <platform name="ios">
     <framework src="Security.framework" />
     <framework src="CFNetwork.framework" />
+    
+    <header-file src="src/ios/third_party/PrePrefix.h" />
+    
     <source-file src="src/ios/third_party/GCDAsyncSocket.m" />
     <header-file src="src/ios/third_party/GCDAsyncSocket.h" />
     <source-file src="src/ios/third_party/GCDAsyncUdpSocket.m" />
