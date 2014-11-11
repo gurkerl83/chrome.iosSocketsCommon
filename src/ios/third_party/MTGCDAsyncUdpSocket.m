@@ -99,8 +99,8 @@ static const int logLevel = LOG_LEVEL_VERBOSE;
 **/
 #define AutoreleasedBlock(block) ^{ @autoreleasepool { block(); }} 
 
-
-@class GCDAsyncUdpSendPacket;
+//now in header file - MTGCDAsyncUdpSendPacket
+//@class GCDAsyncUdpSendPacket;
 
 NSString *const MTGCDAsyncUdpSocketException = @"GCDAsyncUdpSocketException";
 NSString *const MTGCDAsyncUdpSocketErrorDomain = @"GCDAsyncUdpSocketErrorDomain";

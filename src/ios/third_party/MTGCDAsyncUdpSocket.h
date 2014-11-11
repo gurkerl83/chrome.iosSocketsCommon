@@ -13,6 +13,9 @@
 #import <TargetConditionals.h>
 #import <Availability.h>
 
+//extracted from .m file
+@class MTGCDAsyncUdpSendPacket;
+
 extern NSString *const MTGCDAsyncUdpSocketException;
 extern NSString *const MTGCDAsyncUdpSocketErrorDomain;
 
