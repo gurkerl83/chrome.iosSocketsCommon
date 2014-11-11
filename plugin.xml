@@ -19,6 +19,9 @@
     
     <header-file src="src/ios/third_party/MTGCDAsyncSocket.h" />
     <source-file src="src/ios/third_party/MTGCDAsyncSocket.m" />
+    
+    <header-file src="src/ios/third_party/MTGCDAsyncUdpSocket.h" />
+    <source-file src="src/ios/third_party/MTGCDAsyncUdpSocket.m" />
 
     <config-file target="config.xml" parent="/widget">
       <feature name="IosSocketsCommon">
