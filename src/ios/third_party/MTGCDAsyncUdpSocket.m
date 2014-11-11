@@ -8,7 +8,7 @@
 //  https://github.com/robbiehanson/CocoaAsyncSocket
 //
 
-#import "GCDAsyncUdpSocket.h"
+#import "MTGCDAsyncUdpSocket.h"
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
@@ -102,11 +102,11 @@ static const int logLevel = LOG_LEVEL_VERBOSE;
 
 @class GCDAsyncUdpSendPacket;
 
-NSString *const GCDAsyncUdpSocketException = @"GCDAsyncUdpSocketException";
-NSString *const GCDAsyncUdpSocketErrorDomain = @"GCDAsyncUdpSocketErrorDomain";
+NSString *const MTGCDAsyncUdpSocketException = @"GCDAsyncUdpSocketException";
+NSString *const MTGCDAsyncUdpSocketErrorDomain = @"GCDAsyncUdpSocketErrorDomain";
 
-NSString *const GCDAsyncUdpSocketQueueName = @"GCDAsyncUdpSocket";
-NSString *const GCDAsyncUdpSocketThreadName = @"GCDAsyncUdpSocket-CFStream";
+NSString *const MTGCDAsyncUdpSocketQueueName = @"GCDAsyncUdpSocket";
+NSString *const MTGCDAsyncUdpSocketThreadName = @"GCDAsyncUdpSocket-CFStream";
 
 enum GCDAsyncUdpSocketFlags
 {
@@ -144,7 +144,7 @@ enum GCDAsyncUdpSocketConfig
 #pragma mark -
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface GCDAsyncUdpSocket ()
+@interface MTGCDAsyncUdpSocket ()
 {
 #if __has_feature(objc_arc_weak)
 	__weak id delegate;
@@ -178,7 +178,7 @@ enum GCDAsyncUdpSocketConfig
 	dispatch_source_t receive6Source;
 	dispatch_source_t sendTimer;
 	
-	GCDAsyncUdpSendPacket *currentSend;
+	MTGCDAsyncUdpSendPacket *currentSend;
 	NSMutableArray *sendQueue;
 	
 	unsigned long socket4FDBytesAvailable;
@@ -263,7 +263,7 @@ enum GCDAsyncUdpSocketConfig
 /**
  * The GCDAsyncUdpSendPacket encompasses the instructions for a single send/write.
 **/
-@interface GCDAsyncUdpSendPacket : NSObject {
+@interface MTGCDAsyncUdpSendPacket : NSObject {
 @public
 	NSData *buffer;
 	NSTimeInterval timeout;
@@ -283,7 +283,7 @@ enum GCDAsyncUdpSocketConfig
 
 @end
 
-@implementation GCDAsyncUdpSendPacket
+@implementation MTGCDAsyncUdpSendPacket
 
 - (id)initWithData:(NSData *)d timeout:(NSTimeInterval)t tag:(long)i
 {
@@ -305,7 +305,7 @@ enum GCDAsyncUdpSocketConfig
 #pragma mark -
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface GCDAsyncUdpSpecialPacket : NSObject {
+@interface MTGCDAsyncUdpSpecialPacket : NSObject {
 @public
 //	uint8_t type;
 	
@@ -319,7 +319,7 @@ enum GCDAsyncUdpSocketConfig
 
 @end
 
-@implementation GCDAsyncUdpSpecialPacket
+@implementation MTGCDAsyncUdpSpecialPacket
 
 - (id)init
 {
@@ -334,7 +334,7 @@ enum GCDAsyncUdpSocketConfig
 #pragma mark -
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@implementation GCDAsyncUdpSocket
+@implementation MTGCDAsyncUdpSocket
 
 - (id)init
 {
@@ -395,7 +395,7 @@ enum GCDAsyncUdpSocketConfig
 		}
 		else
 		{
-			socketQueue = dispatch_queue_create([GCDAsyncUdpSocketQueueName UTF8String], NULL);
+			socketQueue = dispatch_queue_create([MTGCDAsyncUdpSocketQueueName UTF8String], NULL);
 		}
 
 		// The dispatch_queue_set_specific() and dispatch_get_specific() functions take a "void *key" parameter.
@@ -1003,7 +1003,7 @@ enum GCDAsyncUdpSocketConfig
 {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
-	return [NSError errorWithDomain:GCDAsyncUdpSocketErrorDomain
+	return [NSError errorWithDomain:MTGCDAsyncUdpSocketErrorDomain
 	                           code:GCDAsyncUdpSocketBadConfigError
 	                       userInfo:userInfo];
 }
@@ -1012,7 +1012,7 @@ enum GCDAsyncUdpSocketConfig
 {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
-	return [NSError errorWithDomain:GCDAsyncUdpSocketErrorDomain
+	return [NSError errorWithDomain:MTGCDAsyncUdpSocketErrorDomain
 	                           code:GCDAsyncUdpSocketBadParamError
 	                       userInfo:userInfo];
 }
@@ -1055,7 +1055,7 @@ enum GCDAsyncUdpSocketConfig
 	
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
-	return [NSError errorWithDomain:GCDAsyncUdpSocketErrorDomain
+	return [NSError errorWithDomain:MTGCDAsyncUdpSocketErrorDomain
 	                           code:GCDAsyncUdpSocketSendTimeoutError
 	                       userInfo:userInfo];
 }
@@ -1068,14 +1068,14 @@ enum GCDAsyncUdpSocketConfig
 	
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
-	return [NSError errorWithDomain:GCDAsyncUdpSocketErrorDomain code:GCDAsyncUdpSocketClosedError userInfo:userInfo];
+	return [NSError errorWithDomain:MTGCDAsyncUdpSocketErrorDomain code:GCDAsyncUdpSocketClosedError userInfo:userInfo];
 }
 
 - (NSError *)otherError:(NSString *)errMsg
 {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errMsg forKey:NSLocalizedDescriptionKey];
 	
-	return [NSError errorWithDomain:GCDAsyncUdpSocketErrorDomain
+	return [NSError errorWithDomain:MTGCDAsyncUdpSocketErrorDomain
 	                           code:GCDAsyncUdpSocketOtherError
 	                       userInfo:userInfo];
 }
@@ -3067,7 +3067,7 @@ enum GCDAsyncUdpSocketConfig
 		
 		// Create special connect packet
 		
-		GCDAsyncUdpSpecialPacket *packet = [[GCDAsyncUdpSpecialPacket alloc] init];
+		MTGCDAsyncUdpSpecialPacket *packet = [[MTGCDAsyncUdpSpecialPacket alloc] init];
 		packet->resolveInProgress = YES;
 		
 		// Start asynchronous DNS resolve for host:port on background queue
@@ -3152,7 +3152,7 @@ enum GCDAsyncUdpSocketConfig
 		NSData *address = [remoteAddr copy];
 		NSArray *addresses = [NSArray arrayWithObject:address];
 		
-		GCDAsyncUdpSpecialPacket *packet = [[GCDAsyncUdpSpecialPacket alloc] init];
+		MTGCDAsyncUdpSpecialPacket *packet = [[MTGCDAsyncUdpSpecialPacket alloc] init];
 		packet->addresses = addresses;
 		
 		// Updates flags, add connect packet to send queue, and pump send queue
@@ -3185,11 +3185,11 @@ enum GCDAsyncUdpSocketConfig
 	NSAssert(dispatch_get_specific(IsOnSocketQueueOrTargetQueueKey), @"Must be dispatched on socketQueue");
 	
 	
-	BOOL sendQueueReady = [currentSend isKindOfClass:[GCDAsyncUdpSpecialPacket class]];
+	BOOL sendQueueReady = [currentSend isKindOfClass:[MTGCDAsyncUdpSpecialPacket class]];
 	
 	if (sendQueueReady)
 	{
-		GCDAsyncUdpSpecialPacket *connectPacket = (GCDAsyncUdpSpecialPacket *)currentSend;
+		MTGCDAsyncUdpSpecialPacket *connectPacket = (MTGCDAsyncUdpSpecialPacket *)currentSend;
 		
 		if (connectPacket->resolveInProgress)
 		{
@@ -3526,7 +3526,7 @@ enum GCDAsyncUdpSocketConfig
 		return;
 	}
 	
-	GCDAsyncUdpSendPacket *packet = [[GCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
+	MTGCDAsyncUdpSendPacket *packet = [[MTGCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
 	
 	dispatch_async(socketQueue, ^{ @autoreleasepool {
 		
@@ -3550,7 +3550,7 @@ enum GCDAsyncUdpSocketConfig
 		return;
 	}
 	
-	GCDAsyncUdpSendPacket *packet = [[GCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
+	MTGCDAsyncUdpSendPacket *packet = [[MTGCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
 	packet->resolveInProgress = YES;
 	
 	[self asyncResolveHost:host port:port withCompletionBlock:^(NSArray *addresses, NSError *error) {
@@ -3590,8 +3590,8 @@ enum GCDAsyncUdpSocketConfig
 		return;
 	}
 	
-	GCDAsyncUdpSendPacket *packet = [[GCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
-	packet->addressFamily = [GCDAsyncUdpSocket familyFromAddress:remoteAddr];
+	MTGCDAsyncUdpSendPacket *packet = [[MTGCDAsyncUdpSendPacket alloc] initWithData:data timeout:timeout tag:tag];
+	packet->addressFamily = [MTGCDAsyncUdpSocket familyFromAddress:remoteAddr];
 	packet->address = remoteAddr;
 	
 	dispatch_async(socketQueue, ^{ @autoreleasepool {
@@ -3666,7 +3666,7 @@ enum GCDAsyncUdpSocketConfig
 			currentSend = [sendQueue objectAtIndex:0];
 			[sendQueue removeObjectAtIndex:0];
 			
-			if ([currentSend isKindOfClass:[GCDAsyncUdpSpecialPacket class]])
+			if ([currentSend isKindOfClass:[MTGCDAsyncUdpSpecialPacket class]])
 			{
 				[self maybeConnect];
 				
@@ -3807,7 +3807,7 @@ enum GCDAsyncUdpSocketConfig
 			// Scenario 1 of 3 - Need to asynchronously query sendFilter
 			
 			currentSend->filterInProgress = YES;
-			GCDAsyncUdpSendPacket *sendPacket = currentSend;
+			MTGCDAsyncUdpSendPacket *sendPacket = currentSend;
 			
 			dispatch_async(sendFilterQueue, ^{ @autoreleasepool {
 				
@@ -4607,7 +4607,7 @@ static NSThread *listenerThread;
 {
 	@autoreleasepool {
 	
-		[[NSThread currentThread] setName:GCDAsyncUdpSocketThreadName];
+		[[NSThread currentThread] setName:MTGCDAsyncUdpSocketThreadName];
 		
 		LogInfo(@"ListenerThread: Started");
 		
@@ -4625,7 +4625,7 @@ static NSThread *listenerThread;
 	}
 }
 
-+ (void)addStreamListener:(GCDAsyncUdpSocket *)asyncUdpSocket
++ (void)addStreamListener:(MTGCDAsyncUdpSocket *)asyncUdpSocket
 {
 	LogTrace();
 	NSAssert([NSThread currentThread] == listenerThread, @"Invoked on wrong thread");
@@ -4645,7 +4645,7 @@ static NSThread *listenerThread;
 		CFWriteStreamScheduleWithRunLoop(asyncUdpSocket->writeStream6, runLoop, kCFRunLoopDefaultMode);
 }
 
-+ (void)removeStreamListener:(GCDAsyncUdpSocket *)asyncUdpSocket
++ (void)removeStreamListener:(MTGCDAsyncUdpSocket *)asyncUdpSocket
 {
 	LogTrace();
 	NSAssert([NSThread currentThread] == listenerThread, @"Invoked on wrong thread");
@@ -4668,7 +4668,7 @@ static NSThread *listenerThread;
 static void CFReadStreamCallback(CFReadStreamRef stream, CFStreamEventType type, void *pInfo)
 {
 	@autoreleasepool {
-		GCDAsyncUdpSocket *asyncUdpSocket = (__bridge GCDAsyncUdpSocket *)pInfo;
+		MTGCDAsyncUdpSocket *asyncUdpSocket = (__bridge MTGCDAsyncUdpSocket *)pInfo;
 	
 		switch(type)
 		{
@@ -4720,7 +4720,7 @@ static void CFReadStreamCallback(CFReadStreamRef stream, CFStreamEventType type,
 static void CFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType type, void *pInfo)
 {
 	@autoreleasepool {
-		GCDAsyncUdpSocket *asyncUdpSocket = (__bridge GCDAsyncUdpSocket *)pInfo;
+		MTGCDAsyncUdpSocket *asyncUdpSocket = (__bridge MTGCDAsyncUdpSocket *)pInfo;
 		
 		switch(type)
 		{

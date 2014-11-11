@@ -13,11 +13,11 @@
 #import <TargetConditionals.h>
 #import <Availability.h>
 
-extern NSString *const GCDAsyncUdpSocketException;
-extern NSString *const GCDAsyncUdpSocketErrorDomain;
+extern NSString *const MTGCDAsyncUdpSocketException;
+extern NSString *const MTGCDAsyncUdpSocketErrorDomain;
 
-extern NSString *const GCDAsyncUdpSocketQueueName;
-extern NSString *const GCDAsyncUdpSocketThreadName;
+extern NSString *const MTGCDAsyncUdpSocketQueueName;
+extern NSString *const MTGCDAsyncUdpSocketThreadName;
 
 enum GCDAsyncUdpSocketError
 {
@@ -109,7 +109,7 @@ typedef BOOL (^GCDAsyncUdpSocketReceiveFilterBlock)(NSData *data, NSData *addres
 typedef BOOL (^GCDAsyncUdpSocketSendFilterBlock)(NSData *data, NSData *address, long tag);
 
 
-@interface GCDAsyncUdpSocket : NSObject
+@interface MTGCDAsyncUdpSocket : NSObject
 
 /**
  * GCDAsyncUdpSocket uses the standard delegate paradigm,
@@ -957,7 +957,7 @@ typedef BOOL (^GCDAsyncUdpSocketSendFilterBlock)(NSData *data, NSData *address, 
  * 
  * This method is called if one of the connect methods are invoked, and the connection is successful.
 **/
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address;
+- (void)udpSocket:(MTGCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address;
 
 /**
  * By design, UDP is a connectionless protocol, and connecting is not needed.
@@ -967,30 +967,30 @@ typedef BOOL (^GCDAsyncUdpSocketSendFilterBlock)(NSData *data, NSData *address, 
  * This method is called if one of the connect methods are invoked, and the connection fails.
  * This may happen, for example, if a domain name is given for the host and the domain name is unable to be resolved.
 **/
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error;
+- (void)udpSocket:(MTGCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error;
 
 /**
  * Called when the datagram with the given tag has been sent.
 **/
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
+- (void)udpSocket:(MTGCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
 
 /**
  * Called if an error occurs while trying to send a datagram.
  * This could be due to a timeout, or something more serious such as the data being too large to fit in a sigle packet.
 **/
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error;
+- (void)udpSocket:(MTGCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error;
 
 /**
  * Called when the socket has received the requested datagram.
 **/
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
+- (void)udpSocket:(MTGCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
                                              fromAddress:(NSData *)address
                                        withFilterContext:(id)filterContext;
 
 /**
  * Called when the socket is closed.
 **/
-- (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error;
+- (void)udpSocketDidClose:(MTGCDAsyncUdpSocket *)sock withError:(NSError *)error;
 
 @end
 
