@@ -17,11 +17,9 @@
     <framework src="Security.framework" />
     <framework src="CFNetwork.framework" />
     
-    <framework src="Foundation.framework" />
-    
-    <source-file src="src/ios/third_party/GCDAsyncSocket.m" />
-    <source-file src="src/ios/third_party/GCDAsyncUdpSocket.m" />
-    
+    <header-file src="src/ios/third_party/MTGCDAsyncSocket.h" />
+    <source-file src="src/ios/third_party/MTGCDAsyncSocket.m" />
+
     <config-file target="config.xml" parent="/widget">
       <feature name="IosSocketsCommon">
         <param name="ios-package" value="IosSocketsCommon"/>
