@@ -19,13 +19,9 @@
     
     <framework src="Foundation.framework" />
     
-    <header-file src="src/ios/third_party/PrePrefix.h" />
-    
     <source-file src="src/ios/third_party/GCDAsyncSocket.m" />
-    <header-file src="src/ios/third_party/GCDAsyncSocket.h" />
     <source-file src="src/ios/third_party/GCDAsyncUdpSocket.m" />
-    <header-file src="src/ios/third_party/GCDAsyncUdpSocket.h" />
-
+    
     <config-file target="config.xml" parent="/widget">
       <feature name="IosSocketsCommon">
         <param name="ios-package" value="IosSocketsCommon"/>
